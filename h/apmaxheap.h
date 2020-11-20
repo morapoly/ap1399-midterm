@@ -1,7 +1,6 @@
 #ifndef APMAXHEAP_H
 #define APMAXHEAP_H
 
-// #include "apmaxheap.hpp"
 #include <iostream>
 #include <vector>
 
@@ -11,9 +10,9 @@ class APMaxHeap{
         APMaxHeap();
         ~APMaxHeap() = default;
         APMaxHeap(const APMaxHeap<T> &ap);
-        APMaxHeap<T>& push(T node_value);
+        APMaxHeap<T>& push(T &&node_value);
         APMaxHeap<T>& pop();
-        APMaxHeap<T>& operator+(T node_value);
+        const APMaxHeap<T>& operator+(T node_value);
         APMaxHeap<T>& operator=(APMaxHeap<T> &ap);
         std::vector<T> show() const;
     private:
