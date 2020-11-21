@@ -1,3 +1,8 @@
+#ifndef STUDENT_H
+#define STUDENT_H
+
+#include <iostream>
+
 class Student{
     private:
         long id;
@@ -6,4 +11,8 @@ class Student{
         Student(long id, double avg);
         long getID();
         double getAverage();
+        void operator+=(double shift_value);
+        friend std::ostream &operator<<(std::ostream &os, Student &s);
 };
+
+#endif

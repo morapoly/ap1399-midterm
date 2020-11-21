@@ -6,8 +6,6 @@
 #include <iomanip>
 #include <vector>
 #include "gtest/gtest.h"
-#include <iostream>
-
 namespace
 {
 
@@ -22,7 +20,6 @@ TEST(APMidTest, Test0)
     std::vector<int> res{ap.show()};
     EXPECT_EQ(5, res[2]);
 }
-
 TEST(APMidTest, Test1)
 {
     APMaxHeap<int> ap;
@@ -34,34 +31,28 @@ TEST(APMidTest, Test1)
     std::vector<int> res{ap.show()};
     EXPECT_EQ(8, res[4]);
 }
-
 TEST(APMidTest, Test2)
 {
     APMaxHeap<int> ap;
     ap.push(10).push(20).push(5).push(12).push(8);
-    ap.show();
     std::vector<int> res{ap.show()};
     EXPECT_EQ(8, res[4]);
 }
-
 TEST(APMidTest, Test3)
 {
     APMaxHeap<int> ap;
     ap.push(10).push(20);
-    ap.show();
     ap.pop();
     std::vector<int> res{ap.show()};
-    EXPECT_EQ(20, res[0]);  // 10 changed to 20
+    EXPECT_EQ(10, res[0]);
 }
-
 TEST(APMidTest, Test4)
 {
     APMaxHeap<int> ap;
     ap.push(10).push(20).pop();
     std::vector<int> res{ap.show()};
-    EXPECT_EQ(20, res[0]);  // 10 changed to 20
+    EXPECT_EQ(10, res[0]);
 }
-
 TEST(APMidTest, Test5)
 {
     APMaxHeap<int> ap;
@@ -71,9 +62,8 @@ TEST(APMidTest, Test5)
     std::vector<int> res{ap.show()};
     std::vector<int> res1{ap1.show()};
     EXPECT_EQ(28, res[0]);
-    EXPECT_EQ(28, res1[0]);  // 10 changed to 28
+    EXPECT_EQ(20, res1[0]);
 }
-
 TEST(APMidTest, Test6)
 {
     APMaxHeap<int> ap;
@@ -84,7 +74,6 @@ TEST(APMidTest, Test6)
     EXPECT_EQ(28, res[0]);
     EXPECT_EQ(95, res1[0]);
 }
-/*
 TEST(APMidTest, Test7)
 {
     APMaxHeap<int> ap;
@@ -96,7 +85,6 @@ TEST(APMidTest, Test7)
     EXPECT_EQ(110, res[0]);
     EXPECT_EQ(110, res1[0]);
 }
-
 TEST(APMidTest, Test8)
 {
     Student s1{9423013, 18.1};
@@ -109,7 +97,6 @@ TEST(APMidTest, Test8)
     std::vector<Student> res{aps.show()};
     EXPECT_EQ(9423013, res[3].getID());
 }
-
 TEST(APMidTest, Test9)
 {
     Student s1{9423013, 18.1};
@@ -122,7 +109,6 @@ TEST(APMidTest, Test9)
     std::vector<Student> res{aps.show()};
     EXPECT_EQ(9423102, res[1].getID());
 }
-
 TEST(APMidTest, Test10)
 {
     Student s1{9423013, 18.1};
@@ -138,8 +124,6 @@ TEST(APMidTest, Test10)
     std::vector<Student> res2{aps2.show()};
     EXPECT_EQ(9423037, res1[0].getID());
 }
-
-
 TEST(APMidTest, Test11)
 {
     Student s1{9423013, 18.1};
@@ -152,11 +136,10 @@ TEST(APMidTest, Test11)
     std::vector<Student> res1{aps1.show()};
     EXPECT_EQ(9423091, res1[2].getID());
 }
-
 TEST(APMidTest, Test12)
 {
     Student s1{9423013, 18.1};
     std::cout<<"Student: "<<s1<<std::endl;
 }
-*/
+
 }
