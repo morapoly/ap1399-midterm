@@ -5,11 +5,11 @@ Student::Student(long id, double avg){
     average = avg;
 }
 
-long Student::getID(){
+long Student::getID() const{
     return id;
 }
 
-double Student::getAverage(){
+double Student::getAverage() const{
     return average;
 }
 
@@ -17,7 +17,7 @@ void Student::operator+=(double shift_value){
     average = average + shift_value;
 }
 
-std::ostream &operator<<(std::ostream &os, Student &s){
+std::ostream &operator<<(std::ostream &os, const Student &s){
     os << s.getID() << ", " << s.getAverage();
     return os;
 }

@@ -5,18 +5,38 @@ APMaxHeap<T>::APMaxHeap(const APMaxHeap<T> &ap){
 
 template <class T>
 APMaxHeap<T>& APMaxHeap<T>::push(T &&node_value){
-    int j{ int(arr.size())+1 };
+    int i{ int(arr.size())+1 };
     T* temp = &node_value;
     if (arr.size()==0) arr.push_back(&node_value);
     else{
-        if ( node_value < *arr[j/2-1] ) arr.push_back(&node_value);
+        if ( node_value < *arr[i/2-1] ) arr.push_back(&node_value);
         else{
             arr.push_back(&node_value);
-            while( j/2-1 >= 0 && *arr[j-1] > *arr[j/2-1] ){
-                temp = arr[j/2-1];
-                arr[j/2-1] = arr[j-1];
-                arr[j-1] = temp;
-                j = j/2;
+            while( i/2-1 >= 0 && *arr[i-1] > *arr[i/2-1] ){
+                temp = arr[i/2-1];
+                arr[i/2-1] = arr[i-1];
+                arr[i-1] = temp;
+                i = i/2;
+            }
+        }
+    }
+    return *this;
+}
+
+template <>     // Implementation of new push function specialized for class Student
+APMaxHeap<Student>& APMaxHeap<Student>::push(Student &node_value){
+    int i{ int(arr.size())+1 };
+    Student* temp = &node_value;
+    if (arr.size()==0) arr.push_back(&node_value);
+    else{
+        if ( node_value.getAverage() < arr[i/2-1]->getAverage() ) arr.push_back(&node_value);
+        else{
+            arr.push_back(&node_value);
+            while( i/2-1 >= 0 && arr[i-1]->getAverage() > arr[i/2-1]->getAverage() ){
+                temp = arr[i/2-1];
+                arr[i/2-1] = arr[i-1];
+                arr[i-1] = temp;
+                i = i/2;
             }
         }
     }
@@ -25,47 +45,12 @@ APMaxHeap<T>& APMaxHeap<T>::push(T &&node_value){
 
 template <>     // Class template specializaton for class Student (template overloading)
 APMaxHeap<Student>& APMaxHeap<Student>::push(Student &&node_value){
-    int j{ int(arr.size())+1 };
-    Student* temp = &node_value;
-    if (arr.size()==0) arr.push_back(&node_value);
-    else{
-        if ( node_value.getAverage() < arr[j/2-1]->getAverage() ) arr.push_back(&node_value);
-        else{
-            arr.push_back(&node_value);
-            while( j/2-1 >= 0 && arr[j-1]->getAverage() > arr[j/2-1]->getAverage() ){
-                temp = arr[j/2-1];
-                arr[j/2-1] = arr[j-1];
-                arr[j-1] = temp;
-                j = j/2;
-            }
-        }
-    }
-    return *this;
-}
-
-template <>     // Implementation of new function specialized for class Student
-APMaxHeap<Student>& APMaxHeap<Student>::push(Student &node_value){
-    int j{ int(arr.size())+1 };
-    Student* temp = &node_value;
-    if (arr.size()==0) arr.push_back(&node_value);
-    else{
-        if ( node_value.getAverage() < arr[j/2-1]->getAverage() ) arr.push_back(&node_value);
-        else{
-            arr.push_back(&node_value);
-            while( j/2-1 >= 0 && arr[j-1]->getAverage() > arr[j/2-1]->getAverage() ){
-                temp = arr[j/2-1];
-                arr[j/2-1] = arr[j-1];
-                arr[j-1] = temp;
-                j = j/2;
-            }
-        }
-    }
-    return *this;
+    return push(node_value);
 }
 
 template <class T>
 APMaxHeap<T>& APMaxHeap<T>::pop(){
-    size_t j{1};
+    size_t i{1};
     T* temp;
     if (arr.size() == 0) return *this;
     else if (arr.size() == 1){
@@ -75,20 +60,20 @@ APMaxHeap<T>& APMaxHeap<T>::pop(){
     else{
         arr[0] = arr[arr.size()-1];
         arr.pop_back();
-        while( 2*j <= arr.size() ){
+        while( 2*i <= arr.size() ){
             // Left child comparisson
-            if( *arr[2*j-1] > *arr[j-1] && *arr[2*j-1] > *arr[2*j] ){          
-                temp = arr[j-1];
-                arr[j-1] = arr[2*j-1];
-                arr[2*j-1] = temp;
-                j = 2*j;
+            if( *arr[2*i-1] > *arr[i-1] && *arr[2*i-1] > *arr[2*i] ){          
+                temp = arr[i-1];
+                arr[i-1] = arr[2*i-1];
+                arr[2*i-1] = temp;
+                i = 2*i;
             }
             // Right child comparisson
-            else if( *arr[2*j] > *arr[j-1] ){
-                temp = arr[j-1];
-                arr[j-1] = arr[2*j];
-                arr[2*j] = temp;
-                j = 2*j+1;
+            else if( *arr[2*i] > *arr[i-1] ){
+                temp = arr[i-1];
+                arr[i-1] = arr[2*i];
+                arr[2*i] = temp;
+                i = 2*i+1;
             }
             else break;
         }
@@ -98,7 +83,7 @@ APMaxHeap<T>& APMaxHeap<T>::pop(){
 
 template <>     // Class template specializaton for class Student (template overloading)
 APMaxHeap<Student>& APMaxHeap<Student>::pop(){
-    size_t j{1};
+    size_t i{1};
     Student* temp;
     if (arr.size() == 0) return *this;
     else if (arr.size() == 1){
@@ -108,20 +93,20 @@ APMaxHeap<Student>& APMaxHeap<Student>::pop(){
     else{
         arr[0] = arr[arr.size()-1];
         arr.pop_back();
-        while( 2*j <= arr.size() ){
+        while( 2*i <= arr.size() ){
             // Left child comparisson
-            if( arr[2*j-1]->getAverage() > arr[j-1]->getAverage() && arr[2*j-1]->getAverage() > arr[2*j]->getAverage() ){
-                temp = arr[j-1];
-                arr[j-1] = arr[2*j-1];
-                arr[2*j-1] = temp;
-                j = 2*j;
+            if( arr[2*i-1]->getAverage() > arr[i-1]->getAverage() && arr[2*i-1]->getAverage() > arr[2*i]->getAverage() ){
+                temp = arr[i-1];
+                arr[i-1] = arr[2*i-1];
+                arr[2*i-1] = temp;
+                i = 2*i;
             }
             // Right child comparisson
-            else if( arr[2*j]->getAverage() > arr[j-1]->getAverage() ){
-                temp = arr[j-1];
-                arr[j-1] = arr[2*j];
-                arr[2*j] = temp;
-                j = 2*j+1;
+            else if( arr[2*i]->getAverage() > arr[i-1]->getAverage() ){
+                temp = arr[i-1];
+                arr[i-1] = arr[2*i];
+                arr[2*i] = temp;
+                i = 2*i+1;
             }
             else break;
         }
@@ -132,7 +117,7 @@ APMaxHeap<Student>& APMaxHeap<Student>::pop(){
 template <class T>
 APMaxHeap<T> APMaxHeap<T>::operator+(T &&node_value){
     APMaxHeap<T> temp{*this};
-    temp.push(std::forward<T>(node_value));  // Conversion from Rvalue to Lvalue  **
+    temp.push(std::forward<T>(node_value));  // "std::forward" returs Rvalue
     return temp;
 }
 

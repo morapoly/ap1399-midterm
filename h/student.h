@@ -9,10 +9,10 @@ class Student{
         double average;
     public:
         Student(long id, double avg);
-        long getID();
-        double getAverage();
+        long getID() const;
+        double getAverage() const;
         void operator+=(double shift_value);
-        friend std::ostream &operator<<(std::ostream &os, Student &s);
+        friend std::ostream &operator<<(std::ostream &os, const Student &s);
 };
 
 #endif
